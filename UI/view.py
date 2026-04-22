@@ -36,6 +36,7 @@ class View(ft.UserControl):
                                             ft.dropdown.Option(key="10", text="ottobre"),
                                             ft.dropdown.Option(key="11", text="novembre"),
                                             ft.dropdown.Option(key="12", text="dicembre"),],
+                                   # visualizzo il nome del mese, ma il valore selezionato è il numero corrispondente
                                    label="mese",
                                    width=200,
                                    hint_text="Selezionare un mese",
