@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from database.DB_connect import DBConnect
 from model.situazione import Situazione
 
@@ -22,10 +24,28 @@ class MeteoDao():
                                          row["Umidita"]))
             cursor.close()
             cnx.close()
-        return result
+        return result # ritorna una lista di tutte le situazioni
 
     @staticmethod
-    def getMediaUmidita(mese) -> list:
+    def getAllLocalita() -> list:
+        cnx = DBConnect.get_connection()
+        result = []
+        if cnx is None:
+            print("Connessione fallita")
+        else:
+            cursor = cnx.cursor(dictionary=True)
+            query = """SELECT distinct s.Localita
+                                FROM situazione s"""
+            cursor.execute(query)
+            for row in cursor:
+                result.append(row["Localita"])
+            cursor.close()
+            cnx.close()
+        return result #ritorna una lista di località
+    # utile se cambiamo database
+
+    @staticmethod
+    def getMediaUmidita(mese: int) -> list:
         cnx=DBConnect.get_connection()
         cursor=cnx.cursor(dictionary=True)
 

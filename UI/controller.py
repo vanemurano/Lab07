@@ -27,7 +27,17 @@ class Controller:
         self._view.update_page()
 
     def handle_sequenza(self, e):
-        pass
+        self._view.lst_result.clean()  # ripulisce la listview
+        if self._view.dd_mese.value is None:
+            self._view.create_alert("Selezionare un mese!")
+            return
+        mese = int(self._view.dd_mese.value)
+        self._view.lst_result.controls.append(
+            ft.Text(f"La soluzione ottima ha costo {self._model.calcola(mese)[1]} ed è:"))
+        for situazione in self._model.calcola(mese)[0]:
+            self._view.lst_result.controls.append(
+                ft.Text(situazione))
+        self._view.update_page()
 
     def read_mese(self, e):
         self._mese = int(e.control.value) # passa il numero selezionato come valore
